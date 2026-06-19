@@ -108,27 +108,26 @@ app.post("/api/analyze", async (req, res) => {
     // Combine documents into a massive text for AIML API
     let combinedText = documents.map((doc: any, i: number) => `--- Document ${i + 1} (${doc.id}) ---\n${doc.content}`).join("\n\n");
 
-    const prompt = `You are an orchestration engine executing a sequential 6-agent M&A Due Diligence verification flow on parsed virtual data room (VDR) documents. 
-You must simulate and output the results of these 6 specific agents working in sequence:
+    const prompt = `You are an orchestration engine executing a sequential 5-agent M&A Due Diligence verification flow on parsed virtual data room (VDR) documents. 
+You must simulate and output the results of these 5 specific agents working in sequence:
 
-1. Agent 1: document-triager
+1. Agent 1: document-triager (@paulsamson1101/document-triager)
    - Role: Intake Coordinator.
-   - Task: Reads everything first, organizes documents, and categorizes active assets or flags omissions.
-2. Agent 2: financial-forensic-agent
+   - Task: Reads everything first, organizes for everyone else. (Representing @paulsamson1101/document-triager)
+2. Agent 2: financial-forensic-agent (@paulsamson1101/financial-forensic-agent)
    - Role: Forensic Financial Analyst.
-   - Task: Receives financial documents & Agent 1's triage. Calculates ratios, spots accounting/benchmarking anomalies, and proposes a preliminary valuation range using multiples. (Marked explicitly as PRELIMINARY).
-3. Agent 3: legal-compliance-analyst
+   - Task: Receives the financial document and Agent 1's triage report. Calculates key financial ratios, identifies anomalies against industry benchmarks, and produces a preliminary valuation range using revenue multiples. Output is explicitly marked preliminary — final valuation is determined by the Valuation Adjustment Agent. (Representing @paulsamson1101/financial-forensic-agent)
+3. Agent 3: legal-compliance-analyst (@paulsamson1101/legal-compliance-analyst)
    - Role: Compliance & Contract Attorney.
-   - Task: Receives legal contracts & Agent 1's triage. Identifies red flags like uncapped liability, IP ambiguity, missing GDPR references, and unfavorable renewal terms. Assigns severity and quantifies dollar exposure (risk exposure in USD) for EVERY issue.
-4. Agent 4: valuation-adjustment-agent
-   - Role: PE Pricing Architect.
-   - Task: Receives Agent 2's preliminary valuation and Agent 3's legal exposure figures. Applies discount multipliers and writes off liabilities and risk haircuts to calculate the ultimate Adjusted Enterprise Value.
-5. Agent 5: risk-synthesis-agent
+   - Task: Receives the legal contract and Agent 1's triage report. Scans for red flag clauses including uncapped liability, IP ambiguity, missing GDPR references, and unfavorable renewal terms. Assigns severity ratings and quantifies financial exposure in dollars (USD) for every risk found. Output is consumed by the Valuation Adjustment Agent to reprice the deal. (Representing @paulsamson1101/legal-compliance-analyst)
+4. Agent 5: risk-synthesis-agent (@paulsamson1101/risk-synthesis-agent)
    - Role: Due Diligence Synthesis Expert.
-   - Task: Receives all prior agent outputs and builds a unified risk matrix. Calculates a mathematically weighted Risk Score (0 to 100) using fixed weights: Financial 35%, Legal 40%, and Valuation 25%. Ranks the top 3 critical issues requiring resolution.
-6. Agent 6: executive-arbitrator
-   - Role: Investment Committee Chair.
-   - Task: Compiles a plain English executive brief for C-suite decision makers. Writes a summary of MAXIMUM 3 sentences in the executive summary (punchy, highly declarative, zero jargon). Recommends a final "GO", "CONDITIONAL GO", or "NO-GO". If Agent 5's overall Risk Score exceeds 70, automatically logs a hard escalation requiring Legal Counsel and CFO sign-off.
+   - Task: Receives all prior agent outputs. Builds a unified risk matrix scoring Financial, Legal, and Valuation dimensions using fixed weights (Financial 35%, Legal 40%, Valuation 25%). Produces a weighted overall risk score from 0 to 100 and ranks the top 3 issues requiring resolution before signing. Does not introduce new findings — synthesizes only what prior agents reported. (Representing @paulsamson1101/risk-synthesis-agent)
+5. Agent 6: executive-arbitrator (@paulsamson1101/executive-arbitrator)
+   - Role: Investment Committee Chair & Deal Arbitrator.
+   - Task: Receives Agent 5's risk matrix and all prior reports. Produces a one-page executive brief written in plain English for a CEO audience — no jargon, maximum 3 sentences in the summary, confident declarative tone. Issues a final GO, CONDITIONAL GO, or NO-GO recommendation. If the risk score exceeds 70, automatically triggers an escalation requiring Legal Counsel and CFO sign-off before the deal proceeds. (Representing @paulsamson1101/executive-arbitrator)
+
+(Note: All math adjustment calculations, including calculations of the ultimate Adjusted Enterprise Value based on Agent 2 preliminary ranges and Agent 3 contract risk hairstyles, are integrated and output automatically to fill the JSON schema requirements, even though the dedicated Valuation Adjustment Agent is retired and this step is processed programmatically as part of the overall orchestration.)
 
 OUTPUT FORMAT:
 Provide the output strictly as a JSON object with the following schema:
@@ -187,8 +186,18 @@ ${combinedText}
       response_format: { type: "json_object" },
     });
 
-    const text = response.choices[0].message.content || "{}";
-    const data = JSON.parse(text);
+    let text = response.choices[0]?.message?.content || "{}";
+    
+    // Gracefully clean markdown fences if present
+    let cleanText = text.trim();
+    if (cleanText.startsWith("```")) {
+      const match = cleanText.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
+      if (match) {
+        cleanText = match[1].trim();
+      }
+    }
+
+    const data = JSON.parse(cleanText);
 
     return res.json({ result: data });
   } catch (error) {

@@ -61,7 +61,7 @@ const Valuation: React.FC = () => {
         <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
                 <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 bg-stone-200 text-stone-700 text-xs font-bold tracking-widest uppercase rounded">
-                    <Calculator size={14} /> Agent 4 Engine
+                    <Calculator size={14} /> Integrated Valuation Engine
                 </div>
                 <h1 className="text-3xl font-serif font-semibold text-stone-900">Interactive Valuation Model: {activeSession?.name || 'Target'}</h1>
             </div>
@@ -157,7 +157,7 @@ const Valuation: React.FC = () => {
 
                       <div className="bg-stone-800 rounded-lg p-4 text-sm text-stone-300">
                           <p className="flex items-center gap-2 text-stone-100 font-semibold mb-2">
-                              <Info size={16} className="text-[#bb6cff]" /> Agent 4 Analysis
+                              <Info size={16} className="text-[#bb6cff]" /> Integrated Valuation Analysis
                           </p>
                           <p className="leading-relaxed">
                               The current structure results in an {((totalAdjustments / baseEV) * -100).toFixed(1)}% haircut to the initial LOI valuation. Action required pending adjustments review.

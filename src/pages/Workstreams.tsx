@@ -11,7 +11,7 @@ const Workstreams: React.FC = () => {
   const tabs = [
     { id: 'financial' as const, name: 'Financial Forensic', icon: Calculator, agent: 'Agent 2' },
     { id: 'legal' as const, name: 'Legal Compliance', icon: ShieldAlert, agent: 'Agent 3' },
-    { id: 'valuation' as const, name: 'Valuation Adjuster', icon: CircleDollarSign, agent: 'Agent 4' },
+    { id: 'valuation' as const, name: 'Valuation Adjuster', icon: CircleDollarSign, agent: 'Integrated' },
     { id: 'risk' as const, name: 'Risk Synthesis', icon: GitMerge, agent: 'Agent 5' },
   ];
 
