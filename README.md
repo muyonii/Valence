@@ -47,7 +47,7 @@ Valence operates through **five specialized AI agents** that coordinate through 
 
 ### Five Specialized Agents
 
-#### 1. **Document Triager** (@paulsamson1101/document-triager)
+#### 1. **Document Triager** (@document-triager)
 - **Role:** Intake coordinator - reads everything first, organizes for everyone else
 - **Responsibilities:**
   - Classifies incoming documents by type and relevance
@@ -56,7 +56,7 @@ Valence operates through **five specialized AI agents** that coordinate through 
   - Creates the initial transaction context
 - **Output:** Classification report, metadata extraction, routing decisions
 
-#### 2. **Financial Forensic Agent** (@paulsamson1101/financial-forensic-agent)
+#### 2. **Financial Forensic Agent** (@financial-forensic-agent)
 - **Role:** Deep financial analysis and preliminary valuation
 - **Responsibilities:**
   - Receives financial documents and triage report
@@ -66,7 +66,7 @@ Valence operates through **five specialized AI agents** that coordinate through 
   - Flags concerns for the Valuation Adjustment Agent
 - **Output:** Financial analysis report, ratio analysis, preliminary valuation (marked as preliminary)
 
-#### 3. **Legal Compliance Analyst** (@paulsamson1101/legal-compliance-analyst)
+#### 3. **Legal Compliance Analyst** (@legal-compliance-analyst)
 - **Role:** Contract and compliance risk assessment
 - **Responsibilities:**
   - Receives legal contracts and triage report
@@ -76,7 +76,7 @@ Valence operates through **five specialized AI agents** that coordinate through 
   - Produces detailed legal risk matrix
 - **Output:** Legal risk report, severity-rated findings, financial impact quantification
 
-#### 4. **Risk Synthesis Agent** (@paulsamson1101/risk-synthesis-agent)
+#### 4. **Risk Synthesis Agent** (@risk-synthesis-agent)
 - **Role:** Unified risk aggregation and scoring
 - **Responsibilities:**
   - Receives all prior agent outputs from chat history
@@ -86,7 +86,7 @@ Valence operates through **five specialized AI agents** that coordinate through 
   - Synthesizes only findings from prior agents (no new analysis)
 - **Output:** Unified risk matrix, weighted risk score, prioritized action items
 
-#### 5. **Executive Arbitrator** (@paulsamson1101/executive-arbitrator)
+#### 5. **Executive Arbitrator** (@executive-arbitrator)
 - **Role:** Final decision authority and deal recommendation
 - **Responsibilities:**
   - Receives Agent 4's risk matrix and all prior reports via chat history
