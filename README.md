@@ -4,6 +4,14 @@
 
 [![Band of Agents Hackathon](https://img.shields.io/badge/Hackathon-Band%20of%20Agents-blueviolet?style=for-the-badge)](https://lablab.ai/ai-hackathons/band-of-agents-hackathon)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Built with TypeScript](https://img.shields.io/badge/Built%20with-TypeScript-blue.svg)](https://www.typescriptlang.org/)
+[![Powered by n8n](https://img.shields.io/badge/Automation-n8n-EA4B0B.svg)](https://n8n.io/)
+[![Powered by Band.ai](https://img.shields.io/badge/Agent%20Orchestration-Band.ai-FF6B6B.svg)](https://band.ai/)
+[![React Frontend](https://img.shields.io/badge/Frontend-React-61DAFB.svg?logo=react)](https://react.dev/)
+[![AI-Powered](https://img.shields.io/badge/AI-Powered-4CAF50.svg)](https://www.anthropic.com/)
+[![Document Processing](https://img.shields.io/badge/Document%20Processing-OCR%20%2B%20NLP-FF9800.svg)](https://firestore.google.com/)
+[![Real-time Collaboration](https://img.shields.io/badge/Collaboration-Real--time-9C27B0.svg)](https://band.ai/)
+[![Enterprise Ready](https://img.shields.io/badge/Enterprise-Ready-1976D2.svg)](https://firebase.google.com/)
 
 ---
 
