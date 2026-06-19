@@ -1,0 +1,8 @@
+{
+  "name": "Valence",
+  "description": "M\u0026A Due Diligence War Room",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

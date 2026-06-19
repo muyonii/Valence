@@ -1,0 +1,10 @@
+{
+  "projectId": "hexo-valence",
+  "appId": "1:463383479133:web:15fe4df53d31d8b5cf9eb4",
+  "apiKey": "AIzaSyBDXGS7oUtohgLJm5YY9fHdp6VqxNmJ_jM",
+  "authDomain": "hexo-valence.firebaseapp.com",
+  "firestoreDatabaseId": "(default)",
+  "storageBucket": "hexo-valence.firebasestorage.app",
+  "messagingSenderId": "463383479133",
+  "measurementId": "G-C71Z5S22RM"
+}

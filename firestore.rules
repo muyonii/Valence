@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Rules for user sessions
+    match /sessions/{document=**} {
+      allow read, create, update, delete: if true;
+    }
+
+    // Rules for input collection (uploaded texts)
+    match /input/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Rules for chatid collection
+    match /chatid/{document=**} {
+      allow read, write: if true;
+    }
+
+    // Rules for AI analysis results
+    match /analysis_results/{docId} {
+      allow read, write: if true;
+    }
+
+    // Validation helper for activity logs
+    function isValidActivity(data) {
+      return data.keys().hasAll(['category', 'action', 'details', 'timestamp'])
+        && data.keys().size() <= 6
+        && data.category is string
+        && (data.category == 'ingestion' || data.category == 'valuation' || data.category == 'auth' || data.category == 'risk' || data.category == 'manual')
+        && data.action is string
+        && data.action.size() <= 256
+        && data.details is string
+        && data.details.size() <= 4096
+        && data.timestamp is number
+        && (data.userId == null || data.userId is string)
+        && (data.userEmail == null || data.userEmail is string);
+    }
+
+    // Rules for activities collection
+    match /activities/{activityId} {
+      allow read: if true; 
+      
+      allow create: if isValidId(activityId) 
+        && isValidActivity(request.resource.data)
+        && request.resource.data.timestamp <= request.time.toMillis() + 300000;
+        
+      allow update, delete: if false; 
+    }
+  }
+}

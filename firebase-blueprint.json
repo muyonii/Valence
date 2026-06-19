@@ -1,0 +1,43 @@
+{
+  "entities": {
+    "activity": {
+      "title": "Activity Log",
+      "description": "An event track of actions and document uploads inside the M&A workspace. Provides a verifiable audit trail for due diligence.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase UID of the logged-in user, or 'guest'."
+        },
+        "userEmail": {
+          "type": "string",
+          "description": "Email address of the logged-in user, or fallback address."
+        },
+        "category": {
+          "type": "string",
+          "enum": ["ingestion", "valuation", "auth", "risk", "manual"],
+          "description": "The functional domain of the audit event."
+        },
+        "action": {
+          "type": "string",
+          "description": "Action outline/summary title."
+        },
+        "details": {
+          "type": "string",
+          "description": "Comprehensive audit comments or logs describing the operation."
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Milliseconds timestamp."
+        }
+      },
+      "required": ["category", "action", "details", "timestamp"]
+    }
+  },
+  "firestore": {
+    "activities/{activityId}": {
+      "schema": "activity",
+      "description": "Collection of all audited user, agent, and system actions within the M&A war room."
+    }
+  }
+}
